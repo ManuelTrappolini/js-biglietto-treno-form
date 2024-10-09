@@ -46,20 +46,19 @@ formEl.addEventListener('submit', function (e){
     e.preventDefault()
     console.log(e.target.customerName.value, e.target.customerKm.value);
     const customerKm = e.target.customerKm.value;
-
-    console.log(customerKm);
-    let checkUnder18 = isUnder18.value === 'Minorenne'
-    /* console.log(checkUnder18); */
-    let checkOver65 = isOver65.value === 'Over 65'
-    console.log(checkOver65);
-    if(checkOver65){
-        discountOver = price - ((price * 40) / 100)
-        console.log(discountOver);
-        
-    }
-    else if (checkUnder18){
-        discountUnder = price - ((price * 20) / 100) 
-        console.log(discountUnder.toFixed( 2 ))
+    let price = parseFloat(0.21 * customerKm)
+    let checkUnder18 = isUnder18.selected
+    let checkOver65 = isOver65.selected
+    if (checkOver65 || checkUnder18) {
+        if (checkOver65) {
+            discountOver = price - ((price * 40) / 100)
+            console.log(discountOver.toFixed( 2 ));
+        } else {
+            discountUnder = price - ((price * 20) / 100)
+            console.log(discountUnder.toFixed( 2 ))
+        }
+    } else {
+        console.log('Non sono stato applicati alcun sconto'`${price}`)
     }
 })
 
@@ -76,6 +75,5 @@ formEl.addEventListener('submit', function (e){
         }
     }
 
-totalPrice(kmEl)
 
  
