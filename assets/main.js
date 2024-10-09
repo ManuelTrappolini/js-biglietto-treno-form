@@ -17,29 +17,10 @@ console.log('it works');
  const submitEl = document.getElementById('submit')
  const isUnder18 = document.getElementById('under18')
  const isOver65 = document.getElementById('over65')
+ const customerTicketEl = document.querySelector('.t-body')
  /* console.log(nameEl , kmEl, ageEl, submitEl, formEl, over65); */
- 
-
-
 let price
-
-
 price = 0.21  * customerKm
-
-/* if (age < 18){
-    discountUnder = price - ((price * 20) / 100) 
-    console.log(discountUnder.toFixed( 2 ))
-}
-else if (age > 65){
-    discountOver = price - ((price * 40) / 100)
-    console.log(discountOver.toFixed( 2 ));
-}
-else{
-    console.log(price.toFixed( 2 ))
-} */
-
-
-
 
 
 formEl.addEventListener('submit', function (e){
@@ -50,36 +31,59 @@ formEl.addEventListener('submit', function (e){
     let price = parseFloat(0.21 * customerKm)
     let checkUnder18 = isUnder18.selected
     let checkOver65 = isOver65.selected
+    let train = Math.floor((Math.random() * 10) + 1)
+    let code = Math.floor((Math.random() * 10000) + 1)
     if (checkOver65 || checkUnder18) {
         if (checkOver65) {
             discountOver = price - ((price * 40) / 100)
             console.log(customerName);
             console.log(parseFloat(discountOver.toFixed( 2 )));
-            
-            
+            let offer = 'Over 65 Sconto 40%'
+            const customerTicket =`
+            <tr class="">
+                        <td class="name">${customerName}</td>
+                        <td class="offer">${offer}</td>
+                        <td class="train">${train}</td>
+                        <td class="code">${code}</td>
+                        <td class="ticketcost">€ ${discountOver.toFixed( 2 )}</td>
+            </tr>
+            `
+            customerTicketEl.insertAdjacentHTML('beforeend', customerTicket)
         } else {
             discountUnder = price - ((price * 20) / 100)
             console.log(customerName);
             console.log(parseFloat(discountUnder.toFixed( 2 )));
+            let offer = 'Under 18 Sconto 20%'
+            const customerTicket =`
+            <tr class="">
+                        <td class="name">${customerName}</td>
+                        <td class="offer">${offer}</td>
+                        <td class="train">${train}</td>
+                        <td class="code">${code}</td>
+                        <td class="ticketcost">€ ${discountUnder.toFixed( 2 )}</td>
+            </tr>
+            `
+            customerTicketEl.insertAdjacentHTML('beforeend', customerTicket)
         }
     } else {
         console.log(customerName);
         console.log(price)
+        let offer = 'Standard'
+        const customerTicket =`
+            <tr class="">
+                        <td class="name">${customerName}</td>
+                        <td class="offer">${offer}</td>
+                        <td class="train">${train}</td>
+                        <td class="code">${code}</td>
+                        <td class="ticketcost">€ ${price.toFixed( 2 )}</td>
+            </tr>
+            `
+            customerTicketEl.insertAdjacentHTML('beforeend', customerTicket)
     }
 })
 
 
 
-
-    function totalPrice(number, isUnder18, isOver65) {
-        if (isUnder18) {
-            return number - ((number * 20) / 100);
-        } else if (isOver65) {
-            return number - ((number * 40) / 100);
-        } else {
-            return number;
-        }
-    }
 
 
  
